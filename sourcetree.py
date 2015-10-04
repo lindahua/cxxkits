@@ -39,6 +39,15 @@ class SourceDir(object):
     def isroot(self):
         return len(self.relpath) == 0
 
+    def all_source_files(self):
+        r = []
+        for c in self.children:
+            if isinstance(c, SourceFile):
+                r.append(c)
+            else:
+                cr = c.all_source_files()
+                r.extend(cr)
+        return r
 
 def collect_sources(rootdir, relpath="", source_exts=cxx_exts):
     """Collect all sources in a given directory"""
@@ -84,7 +93,6 @@ def collect_sources(rootdir, relpath="", source_exts=cxx_exts):
         return SourceDir(rootdir, relpath, children, ns)
     else:
         return None
-
 
 def print_sources(sdir):
     """Print all items in a source directory"""
