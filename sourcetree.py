@@ -71,7 +71,7 @@ def collect_sources(rootdir, relpath="", source_exts=cxx_exts):
         cpath = os.path.join(dirpath, cname)
 
         if os.path.isdir(cpath):
-            if cname.startswith("build") or cname.startswith("bin"):
+            if cname.startswith("build") or cname.startswith("bin") or cname.startswith("deprecate"):
                 continue
             subdir = collect_sources(rootdir,
                 relpath=os.path.join(relpath, cname),
